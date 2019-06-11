@@ -92,6 +92,14 @@ public protocol MessageLabelDelegate: AnyObject {
     ///   - touchLocation: The location in the `MessageLabel` in which the tap happened.
     func didSelectCustom(_ pattern: String, match: String?, in messageLabel: MessageLabel, touchLocation: CGPoint)
 
+    /// Triggered when a tap occurs on a NSTextAttachment
+    ///
+    /// - Parameters:
+    ///   - textAttachment: the `NSTextAttachment` tapped.
+    ///   - characterIndex: the index of the character in the `MessageLabel`'s string
+    ///   - messageLabel: The `MessageLabel` in which the tap happened.
+    ///   - touchLocation: The location in the `MessageLabel` in which the tap happened.
+    func didSelectTextAttachment(_ textAttachment: NSTextAttachment, characterIndex: Int, in messageLabel: MessageLabel, touchLocation: CGPoint)
 }
 
 public extension MessageLabelDelegate {
