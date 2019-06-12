@@ -9,6 +9,7 @@ The changelog for `MessageKit`. Also see the [releases](https://github.com/Messa
 - **Breaking Change** Pass back MessageLabel reference in MessageLabelDelegate methods. [#1082](https://github.com/MessageKit/MessageKit/pull/1082) by [@marcetcheverry](https://github.com/marcetcheverry)
 - Support for tapping NSTextAttachments in MessageLabel. [#1090](https://github.com/MessageKit/MessageKit/pull/1090) by [@marcetcheverry](https://github.com/marcetcheverry)
 - Add support for styling NSLinkAttribute with existing urlAttributes in MessageLabel. [#1091](https://github.com/MessageKit/MessageKit/pull/1091) by [@marcetcheverry](https://github.com/marcetcheverry)
+- Lazily initialize the MessageInputBar on MessagesViewController. [#1092](https://github.com/MessageKit/MessageKit/pull/1092) by [@marcetcheverry](https://github.com/marcetcheverry)
 
 ## 3.0.0
 
