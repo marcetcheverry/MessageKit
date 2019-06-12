@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
    s.social_media_url = 'https://twitter.com/nathantannar4'
    s.author = { "Nathan Tannar" => "nathantannar4@gmail.com" }
 
-   s.source = { :git => 'https://github.com/MessageKit/MessageKit.git', :tag => s.version }
+   s.source = { :git => 'https://github.com/marcetcheverry/MessageKit.git', :branch => '3.0.0-swift5-all-improvements' }
    s.source_files = 'Sources/**/*.swift'
 
    s.pod_target_xcconfig = {
