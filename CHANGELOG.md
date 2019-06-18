@@ -18,15 +18,10 @@ The changelog for `MessageKit`. Also see the [releases](https://github.com/Messa
 
 - Make messageLabelInsets(for message: MessageType) open so it can be overriden in TextMessageSizeCalculator. [#1098](https://github.com/MessageKit/MessageKit/pull/1098) by [@marcetcheverry](https://github.com/marcetcheverry)
 
+- Improve handling of attributed strings with multiple paragraph styles. [#1097](https://github.com/MessageKit/MessageKit/pull/1097) by [@marcetcheverry](https://github.com/marcetcheverry)
+
 ## 3.0.0
 
-## Upcoming Release
-
-### Added
-
-- Add support for styling NSLinkAttribute with existing urlAttributes in MessageLabel. [#1091](https://github.com/MessageKit/MessageKit/pull/1091) by [@marcetcheverry](https://github.com/marcetcheverry)
-
-## Upcoming Release
 ### Dependency Changes
 
 - **Breaking Change** The dependency `MessageInputBar` was replaced with `InputBarAccessoryView`. As `MessageInputBar` was previously a fork this means no functionality has been lost but improvements and bug fixes will be present. `InputBarAccessoryView` has more of a following outside of `MessageKit` making its development faster than `MessageInputBar`. Maintaining two versions only increased the workload. You can find the changelog for `InputBarAccessoryView` [here](https://github.com/nathantannar4/InputBarAccessoryView/blob/master/CHANGELOG.md).
