@@ -24,7 +24,7 @@
 
 import UIKit
 
-open class MessagesCollectionView: UICollectionView {
+open class MessagesCollectionView: UICollectionView, UIGestureRecognizerDelegate {
 
     // MARK: - Properties
 
@@ -85,19 +85,28 @@ open class MessagesCollectionView: UICollectionView {
     
     private func setupGestureRecognizers() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
-        tapGesture.delaysTouchesBegan = true
+        tapGesture.delegate = self
+
+        tapGesture.require(toFail: self.panGestureRecognizer)
+        if let pinchGestureRecognizer = self.pinchGestureRecognizer {
+            tapGesture.require(toFail: pinchGestureRecognizer)
+        }
+
         addGestureRecognizer(tapGesture)
     }
-    
+
+    open func cellForGestureRecognizer(_ gesture: UIGestureRecognizer) -> MessageCollectionViewCell? {
+        let touchLocation = gesture.location(in: self)
+        guard let indexPath = indexPathForItem(at: touchLocation) else { return nil }
+
+        return cellForItem(at: indexPath) as? MessageCollectionViewCell
+    }
+
     @objc
     open func handleTapGesture(_ gesture: UIGestureRecognizer) {
         guard gesture.state == .ended else { return }
-        
-        let touchLocation = gesture.location(in: self)
-        guard let indexPath = indexPathForItem(at: touchLocation) else { return }
-        
-        let cell = cellForItem(at: indexPath) as? MessageCollectionViewCell
-        cell?.handleTapGesture(gesture)
+
+        cellForGestureRecognizer(gesture)?.handleTapGesture(gesture)
     }
 
     public func scrollToBottom(animated: Bool = false) {
@@ -192,4 +201,15 @@ open class MessagesCollectionView: UICollectionView {
         return viewType
     }
 
+    override open func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let cell = cellForGestureRecognizer(gestureRecognizer)
+
+        return cell?.gestureRecognizerShouldBegin(gestureRecognizer) ?? super.gestureRecognizerShouldBegin(gestureRecognizer)
+    }
+
+    open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let cell = cellForGestureRecognizer(gestureRecognizer)
+
+        return cell?.gestureRecognizer(gestureRecognizer, shouldReceive: touch) ?? true
+    }
 }

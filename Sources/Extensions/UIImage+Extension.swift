@@ -24,6 +24,7 @@
 
 public enum ImageType: String {
     case play
+    case sliderThumb = "slider_thumb"
     case pause
     case disclouser
 }

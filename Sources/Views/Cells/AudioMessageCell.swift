@@ -33,7 +33,11 @@ open class AudioMessageCell: MessageContentCell {
         let playButton = UIButton(type: .custom)
         let playImage = UIImage.messageKitImageWith(type: .play)
         let pauseImage = UIImage.messageKitImageWith(type: .pause)
+        playButton.addTarget(self,
+                             action: #selector(didTapPlayButton(_:)),
+                             for: .touchUpInside)
         playButton.setImage(playImage?.withRenderingMode(.alwaysTemplate), for: .normal)
+        playButton.setImage(pauseImage?.withRenderingMode(.alwaysTemplate), for: .highlighted)
         playButton.setImage(pauseImage?.withRenderingMode(.alwaysTemplate), for: .selected)
         return playButton
     }()
@@ -54,12 +58,22 @@ open class AudioMessageCell: MessageContentCell {
         return activityIndicatorView
     }()
 
-    public lazy var progressView: UIProgressView = {
-        let progressView = UIProgressView(progressViewStyle: .default)
-        progressView.progress = 0.0
-        return progressView
+    public lazy var slider: UISlider = {
+        let slider = UISlider()
+        let thumbImage = UIImage.messageKitImageWith(type: .sliderThumb)
+        slider.setThumbImage(thumbImage?.withRenderingMode(.alwaysTemplate), for: .normal)
+
+        slider.addTarget(self,
+                         action: #selector(sliderValueChanged(_:)),
+                         for: .valueChanged)
+        return slider
     }()
-    
+
+    // MARK: - Interface Actions
+    @objc func sliderValueChanged(_ slider: UISlider) {
+        delegate?.didSeekAudio(in: self)
+    }
+
     // MARK: - Methods
 
     /// Responsible for setting up the constraints of the cell's subviews.
@@ -68,7 +82,7 @@ open class AudioMessageCell: MessageContentCell {
         playButton.addConstraints(left: messageContainerView.leftAnchor, centerY: messageContainerView.centerYAnchor, leftConstant: 5)
         activityIndicatorView.addConstraints(centerY: playButton.centerYAnchor, centerX: playButton.centerXAnchor)
         durationLabel.addConstraints(right: messageContainerView.rightAnchor, centerY: messageContainerView.centerYAnchor, rightConstant: 15)
-        progressView.addConstraints(left: playButton.rightAnchor, right: durationLabel.leftAnchor, centerY: messageContainerView.centerYAnchor, leftConstant: 5, rightConstant: 5)
+        slider.addConstraints(left: playButton.rightAnchor, right: durationLabel.leftAnchor, centerY: messageContainerView.centerYAnchor, leftConstant: 10, rightConstant: 5)
     }
 
     open override func setupSubviews() {
@@ -76,17 +90,27 @@ open class AudioMessageCell: MessageContentCell {
         messageContainerView.addSubview(playButton)
         messageContainerView.addSubview(activityIndicatorView)
         messageContainerView.addSubview(durationLabel)
-        messageContainerView.addSubview(progressView)
+        messageContainerView.addSubview(slider)
         setupConstraints()
     }
 
     open override func prepareForReuse() {
         super.prepareForReuse()
-        progressView.progress = 0
+        slider.value = 0
         playButton.isSelected = false
         activityIndicatorView.stopAnimating()
         playButton.isHidden = false
         durationLabel.text = "0:00"
+    }
+
+    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let touchPoint = gestureRecognizer.location(in: messageContainerView)
+
+        if slider.frame.contains(touchPoint) {
+            return false
+        }
+
+        return super.gestureRecognizerShouldBegin(gestureRecognizer)
     }
 
     /// Handle tap gesture on contentView and its subviews.
@@ -101,6 +125,10 @@ open class AudioMessageCell: MessageContentCell {
         } else {
             super.handleTapGesture(gesture)
         }
+    }
+
+    @objc open func didTapPlayButton(_ button: UIButton) {
+        delegate?.didTapPlayButton(in: self)
     }
 
     // MARK: - Configure Cell
@@ -130,7 +158,7 @@ open class AudioMessageCell: MessageContentCell {
         let tintColor = displayDelegate.audioTintColor(for: message, at: indexPath, in: messagesCollectionView)
         playButton.imageView?.tintColor = tintColor
         durationLabel.textColor = tintColor
-        progressView.tintColor = tintColor
+        slider.tintColor = tintColor
 
         displayDelegate.configureAudioCell(self, message: message)
 
@@ -138,4 +166,10 @@ open class AudioMessageCell: MessageContentCell {
             durationLabel.text = displayDelegate.audioProgressTextFormat(audioItem.duration, for: self, in: messagesCollectionView)
         }
     }
+
+    // MARK: - UIGestureRecognizerDelegate
+    override open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return touch.view != slider
+    }
+
 }
