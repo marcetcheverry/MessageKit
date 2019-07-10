@@ -30,6 +30,8 @@ The changelog for `MessageKit`. Also see the [releases](https://github.com/Messa
 
 - Fix text clipping caused by MessageSizeCalculator when textInsets are zero in MessageLabel. [#1136](https://github.com/MessageKit/MessageKit/pull/1136) by [@marcetcheverry](https://github.com/marcetcheverry)
 
+- Fix implementation of sizeThatFits and improve implementation of intrinsicContentSize in MessageLabel. [#1137](https://github.com/MessageKit/MessageKit/pull/1137) by [@marcetcheverry](https://github.com/marcetcheverry)
+
 ## 3.0.0
 
 ### Dependency Changes

@@ -109,15 +109,11 @@ open class MessageLabel: UILabel {
 
     open var textInsets: UIEdgeInsets = .zero {
         didSet {
-            if !isConfiguring { setNeedsDisplay() }
+            if !isConfiguring {
+                invalidateIntrinsicContentSize()
+                setNeedsDisplay()
+            }
         }
-    }
-
-    open override var intrinsicContentSize: CGSize {
-        var size = super.intrinsicContentSize
-        size.width += textInsets.horizontal
-        size.height += textInsets.vertical
-        return size
     }
 
     internal var messageLabelFont: UIFont?
@@ -198,6 +194,28 @@ open class MessageLabel: UILabel {
 
         layoutManager.drawBackground(forGlyphRange: range, at: origin)
         layoutManager.drawGlyphs(forGlyphRange: range, at: origin)
+    }
+
+    // This enables proper calculation of intrinsicContentSize and sizeThatFits
+    open override func textRect(forBounds bounds: CGRect, limitedToNumberOfLines numberOfLines: Int) -> CGRect {
+        
+        // UIKit often uses MAX values for 2 dimensional constraint based layout of text, we don't want to adjust those values
+        var insetBounds = bounds
+        if !insetBounds.size.width.isGreatestFiniteMagnitude {
+            insetBounds.size.width -= textInsets.horizontal
+        }
+
+        if !insetBounds.size.height.isGreatestFiniteMagnitude {
+            insetBounds.size.height -= textInsets.vertical
+        }
+
+        var actualTextRect = super.textRect(forBounds: insetBounds, limitedToNumberOfLines: numberOfLines)
+
+        // Add back the inset to what UILabel calculated
+        actualTextRect.size.width += textInsets.horizontal
+        actualTextRect.size.height += textInsets.vertical
+
+        return actualTextRect
     }
 
     // MARK: - Public Methods
