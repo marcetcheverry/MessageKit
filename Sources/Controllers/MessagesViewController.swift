@@ -23,7 +23,6 @@
  */
 
 import UIKit
-import InputBarAccessoryView
 
 /// A subclass of `UIViewController` with a `MessagesCollectionView` object
 /// that is used to display conversation interfaces.
@@ -32,10 +31,6 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     /// The `MessagesCollectionView` managed by the messages view controller object.
     open var messagesCollectionView = MessagesCollectionView()
-
-    /// The lazily created `InputBarAccessoryView` used as the `inputAccessoryView` in the view controller.
-    /// See `inputAccessoryView` and `inputTextView` which reference this.
-    open lazy var messageInputBar = InputBarAccessoryView()
 
     /// A Boolean value that determines whether the `MessagesCollectionView` scrolls to the
     /// bottom whenever the `InputTextView` begins editing.
@@ -49,19 +44,9 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     /// The default value of this property is `false`.
     open var maintainPositionOnKeyboardFrameChanged: Bool = false
 
-    open override var canBecomeFirstResponder: Bool {
-        return true
-    }
-
-    /// You should override `inputTextView` if you override this.
-    open override var inputAccessoryView: UIView? {
-        return messageInputBar
-    }
-
     /// The default textView responsible for `scrollsToBottomOnKeyboardBeginsEditing`.
-    /// Override this property if you override `inputAccessoryView`.
     open var inputTextView: UITextView? {
-        return messageInputBar.inputTextView
+        return nil
     }
 
     open override var shouldAutorotate: Bool {
