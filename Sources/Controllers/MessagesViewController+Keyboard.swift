@@ -23,6 +23,7 @@
  */
 
 import Foundation
+import InputBarAccessoryView
 
 internal extension MessagesViewController {
 
@@ -54,6 +55,14 @@ internal extension MessagesViewController {
     private func handleKeyboardDidChangeState(_ notification: Notification) {
         guard !isMessagesControllerBeingDismissed else { return }
 
+        guard let keyboardStartFrameInScreenCoords = notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? CGRect else { return }
+        guard !keyboardStartFrameInScreenCoords.isEmpty || UIDevice.current.userInterfaceIdiom != .pad else {
+            // WORKAROUND for what seems to be a bug in iPad's keyboard handling in iOS 11: we receive an extra spurious frame change
+            // notification when undocking the keyboard, with a zero starting frame and an incorrect end frame. The workaround is to
+            // ignore this notification.
+            return
+        }
+        
         // Note that the check above does not exclude all notifications from an undocked keyboard, only the weird ones.
         //
         // We've tried following Apple's recommended approach of tracking UIKeyboardWillShow / UIKeyboardDidHide and ignoring frame
@@ -113,7 +122,8 @@ internal extension MessagesViewController {
     }
 
     func requiredInitialScrollViewBottomInset() -> CGFloat {
-        return max(0, additionalBottomInset - automaticallyAddedBottomInset)
+        guard let inputAccessoryView = inputAccessoryView else { return 0 }
+        return max(0, inputAccessoryView.frame.height + additionalBottomInset - automaticallyAddedBottomInset)
     }
 
     /// iOS 11's UIScrollView can automatically add safe area insets to its contentInset,
