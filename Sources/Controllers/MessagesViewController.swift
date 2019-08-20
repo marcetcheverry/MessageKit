@@ -37,7 +37,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     ///
     /// The default value of this property is `false`.
     open var scrollsToBottomOnKeyboardBeginsEditing: Bool = false
-    
+
     /// A Boolean value that determines whether the `MessagesCollectionView`
     /// maintains it's current position when the height of the `MessageInputBar` changes.
     ///
@@ -71,7 +71,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     public var selectedIndexPathForMenu: IndexPath?
 
     private var isFirstLayout: Bool = true
-    
+
     internal var isMessagesControllerBeingDismissed: Bool = false
 
     internal var messageCollectionViewBottomInset: CGFloat = 0 {
@@ -92,22 +92,22 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
         addMenuControllerObservers()
         addObservers()
     }
-    
+
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isMessagesControllerBeingDismissed = false
     }
-    
+
     open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         isMessagesControllerBeingDismissed = true
     }
-    
+
     open override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         isMessagesControllerBeingDismissed = false
     }
-    
+
     open override func viewDidLayoutSubviews() {
         // Hack to prevent animation of the contentInset after viewDidAppear
         if isFirstLayout {
@@ -115,7 +115,6 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
             addKeyboardObservers()
             messageCollectionViewBottomInset = requiredInitialScrollViewBottomInset()
         }
-        adjustScrollViewTopInset()
     }
 
     open override func viewSafeAreaInsetsDidChange() {
@@ -155,7 +154,7 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
 
     private func setupConstraints() {
         messagesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        
+
         let top = messagesCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: topLayoutGuide.length)
         let bottom = messagesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         if #available(iOS 11.0, *) {
@@ -396,16 +395,16 @@ UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     }
 
     // MARK: - Helpers
-    
+
     private func addObservers() {
         NotificationCenter.default.addObserver(
             self, selector: #selector(clearMemoryCache), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
     }
-    
+
     private func removeObservers() {
         NotificationCenter.default.removeObserver(self, name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
     }
-    
+
     @objc private func clearMemoryCache() {
         MessageStyle.bubbleImageCache.removeAllObjects()
     }
