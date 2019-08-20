@@ -24,7 +24,6 @@
 
 import Quick
 import Nimble
-import InputBarAccessoryView
 @testable import MessageKit
 
 //swiftlint:disable function_body_length

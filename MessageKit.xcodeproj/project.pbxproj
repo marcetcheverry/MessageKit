@@ -37,8 +37,6 @@
 		382C794221705D2000F4FAF5 /* HorizontalEdgeInsets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 382C794121705D2000F4FAF5 /* HorizontalEdgeInsets.swift */; };
 		383B9EB121728BAD008AB91A /* SenderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383B9EB021728BAD008AB91A /* SenderType.swift */; };
 		388119462253EC30004B26AF /* TypingIndicatorCellSizeCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388119452253EC30004B26AF /* TypingIndicatorCellSizeCalculator.swift */; };
-		38A2230F221FB8A300D14DAF /* MessageInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A2230E221FB8A300D14DAF /* MessageInputBar.swift */; };
-		38A223112223493500D14DAF /* InputBarAccessoryView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38A223102223493400D14DAF /* InputBarAccessoryView.framework */; };
 		38F8062F2173CD8F00CDB9DB /* MockUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F8062D2173CD4300CDB9DB /* MockUser.swift */; };
 		38F8063221740D9E00CDB9DB /* TypingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F8063021740D9D00CDB9DB /* TypingIndicator.swift */; };
 		38F8063321740D9E00CDB9DB /* BubbleCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38F8063121740D9D00CDB9DB /* BubbleCircle.swift */; };
@@ -150,8 +148,6 @@
 		382C794121705D2000F4FAF5 /* HorizontalEdgeInsets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalEdgeInsets.swift; sourceTree = "<group>"; };
 		383B9EB021728BAD008AB91A /* SenderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderType.swift; sourceTree = "<group>"; };
 		388119452253EC30004B26AF /* TypingIndicatorCellSizeCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicatorCellSizeCalculator.swift; sourceTree = "<group>"; };
-		38A2230E221FB8A300D14DAF /* MessageInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputBar.swift; sourceTree = "<group>"; };
-		38A223102223493400D14DAF /* InputBarAccessoryView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InputBarAccessoryView.framework; path = Carthage/Build/iOS/InputBarAccessoryView.framework; sourceTree = "<group>"; };
 		38C2AE7B20D4878D00F8079E /* MessageInputBar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageInputBar.framework; path = Carthage/Build/iOS/MessageInputBar.framework; sourceTree = "<group>"; };
 		38F8062D2173CD4300CDB9DB /* MockUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUser.swift; sourceTree = "<group>"; };
 		38F8063021740D9D00CDB9DB /* TypingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypingIndicator.swift; sourceTree = "<group>"; };
@@ -222,7 +218,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38A223112223493500D14DAF /* InputBarAccessoryView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +237,6 @@
 		1F7FC8C21FD26F22006CC979 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				38A223102223493400D14DAF /* InputBarAccessoryView.framework */,
 				38C2AE7B20D4878D00F8079E /* MessageInputBar.framework */,
 				1F7FC8C71FD26F49006CC979 /* Nimble.framework */,
 				1F7FC8C51FD26F33006CC979 /* Quick.framework */,
@@ -502,7 +496,6 @@
 				B7A03F711F866A06006AEF79 /* Info.plist */,
 				B7A03F721F866A06006AEF79 /* MessageKit.h */,
 				B7A03F701F866A06006AEF79 /* MessageKit+Availability.swift */,
-				38A2230E221FB8A300D14DAF /* MessageInputBar.swift */,
 			);
 			path = Supporting;
 			sourceTree = "<group>";
@@ -657,7 +650,6 @@
 				B7A03F3A1F866946006AEF79 /* TextMessageCell.swift in Sources */,
 				50FF34552237FE4C0004DCD7 /* ContactItem.swift in Sources */,
 				B7A03F191F86682C006AEF79 /* MessagesCollectionViewLayoutAttributes.swift in Sources */,
-				38A2230F221FB8A300D14DAF /* MessageInputBar.swift in Sources */,
 				B7A03F461F86694F006AEF79 /* AvatarView.swift in Sources */,
 				1FCA6D30201C1CC900BC3480 /* UIEdgeInsets+Extensions.swift in Sources */,
 				B7A03F3D1F866946006AEF79 /* MediaMessageCell.swift in Sources */,
