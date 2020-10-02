@@ -27,7 +27,7 @@ import Foundation
 internal extension CGFloat {
 
     // This checks against the sentinel values used for unconstrained layout in one direction
-    var isGreatestFiniteMagnitude : Bool {
+    var isGreatestFiniteMagnitude: Bool {
         if self == CGFloat.greatestFiniteMagnitude {
             return true
         }

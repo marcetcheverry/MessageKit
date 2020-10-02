@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
    s.name = 'MessageKit'
-   s.version = '3.1.0'
+   s.version = '3.4.1'
    s.license = { :type => "MIT", :file => "LICENSE.md" }
 
    s.summary = 'An elegant messages UI library for iOS.'
@@ -8,17 +8,11 @@ Pod::Spec.new do |s|
    s.social_media_url = 'https://twitter.com/_SD10_'
    s.author = { "Steven Deutsch" => "stevensdeutsch@yahoo.com" }
 
-   s.source = { :git => 'https://github.com/marcetcheverry/MessageKit.git', :branch => '3.0.0-swift5-all-improvements' }
+   s.source = { :git => 'https://github.com/MessageKit/MessageKit.git', :tag => s.version }
    s.source_files = 'Sources/**/*.swift'
 
-   s.pod_target_xcconfig = {
-      "SWIFT_VERSION" => "5.0",
-   }
+   s.swift_version = '5.3'
 
-   s.swift_version = '5.0'
-
-   s.ios.deployment_target = '9.0'
-   s.ios.resource_bundle = { 'MessageKitAssets' => 'Assets/MessageKitAssets.bundle/Images' }
-
-   s.requires_arc = true
+   s.ios.deployment_target = '12.0'
+   s.ios.resources = ['Sources/Assets.xcassets']
 end

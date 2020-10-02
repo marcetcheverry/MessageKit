@@ -24,6 +24,24 @@
 
 import UIKit
 
+internal extension CGFloat {
+
+    // This checks against the sentinel values used for unconstrained layout in one direction
+    var isGreatestFiniteMagnitude : Bool {
+        if self == CGFloat.greatestFiniteMagnitude {
+            return true
+        }
+
+        // The frameworks (and this method in particular) sometimes wrongly use the 32-bit version even if CGFLOAT_IS_DOUBLE is 1
+        if self == CGFloat(Float.greatestFiniteMagnitude) {
+            return true
+        }
+
+        return false
+    }
+
+}
+
 open class MessageLabel: UILabel {
 
     // MARK: - Private Properties
